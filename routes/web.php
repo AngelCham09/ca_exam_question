@@ -14,7 +14,14 @@ Route::get('/instructions', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get("investors", [\App\Http\Controllers\InvestorController::class, 'index'])->name('investors.index');
+Route::prefix('investors')->group(function () {
+    Route::get("/", [\App\Http\Controllers\InvestorController::class, 'index'])->name('investors.index');
+    Route::get("create", [\App\Http\Controllers\InvestorController::class, 'create'])->name('investors.create');
+    Route::post("store", [\App\Http\Controllers\InvestorController::class, 'store'])->name('investors.store');
+    Route::get("{investor}/edit", [\App\Http\Controllers\InvestorController::class, 'edit'])->name('investors.edit');
+    Route::put("{investor}", [\App\Http\Controllers\InvestorController::class, 'update'])->name('investors.update');
+});
+
 Route::get("funds", [FundController::class, 'index'])->name('funds.index');;
 Route::get("investments", [InvestmentController::class, 'index'])->name('investments.index');
 Route::get("graph", [GraphController::class, 'index'])->name('graph.index');

@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'exam' => [
+        'email' => env('EXAM_API_EMAIL'),
+        'base_url' => env('EXAM_API_BASE_URL'),
+    ],
+
 ];
